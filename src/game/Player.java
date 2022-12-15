@@ -1,6 +1,5 @@
 package game;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -11,24 +10,14 @@ import java.util.List;
  * <p>
  * Also note the principle of Encapsulation: all instance variables are private.
  * Access is only allowed through public accessor methods, which gives us
- * control over how the data is stored and presented. We could change the
- * List<Card> to a Hand class if we wanted where Hand looks like this:
- * 
- * <pre>
- * public class Hand extends List<Card> {
- * }
- * </pre>
- * 
- * This would make the Hand class very similar to the {@link Deck} class. We
- * could make that change without changing the accessor method
- * ({@link #getHand()} at all.
+ * control over how the data is stored and presented.
  * 
  * @author Promineo
  *
  */
 public class Player {
   private String name;
-  private List<Card> hand = new LinkedList<>();
+  private Hand hand = new Hand();
   private int score;
 
   /**
@@ -76,16 +65,11 @@ public class Player {
    */
   @Override
   public String toString() {
-    StringBuilder b = new StringBuilder();
+    StringBuilder result = new StringBuilder();
 
-    b.append("Player ").append(name).append("'s hand: ")
-        .append(System.lineSeparator());
+    result.append("Player ").append(name).append("'s ").append(hand);
 
-    for(Card card : getHand()) {
-      b.append("   ").append(card).append("\n");
-    }
-
-    return b.toString();
+    return result.toString();
   }
 
   /**
@@ -104,7 +88,7 @@ public class Player {
    *         things straight.
    */
   public Card flip() {
-    return hand.remove(0);
+    return hand.remove();
   }
 
   /**

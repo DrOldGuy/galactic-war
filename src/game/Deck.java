@@ -1,14 +1,14 @@
 package game;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * This class represents a card deck. The deck is populated with cards in the
- * constructor. Note that the Deck class extends LinkedList<Card>. This means
- * that the Deck can be treated as a List of Card with all the public methods
- * from List accessible to the caller.
+ * constructor. Note that the Deck class extends {@link AbstractCardList}, which
+ * extends LinkedList<Card>. This means that the Deck can be treated as a List
+ * of Card with all the public methods from List accessible to the caller.
  * <p>
  * @SuppressWarnings("serial"): The class doesn't declare the instance variable
  * serialVersionUID so a warning is generated. The class doesn't need to be
@@ -18,19 +18,29 @@ import java.util.List;
  *
  */
 @SuppressWarnings("serial")
-public class Deck extends LinkedList<Card> {
+public class Deck extends AbstractCardList {
   /* The internal list of person names that is used to generate the deck. */
-  private final List<String> people = List.of("Bobba Fett", "Anakin Skywalker",
-      "Luke Skywalker", "Leia Organa", "Han Solo", "Padmé Amidala",
-      "Jabba the Hutt", "Chewbacca", "Yoda", "C3-PO", "R2-D2", "Shmi Skywalker",
-      "Rey Skywalker", "Jar-Jar Binks", "Maz Kanata", "Wedge Antilles");
+  private final List<String> cardNames =
+      List.of("Bobba Fett", "Anakin Skywalker", "Luke Skywalker", "Leia Organa",
+          "Han Solo", "Padmé Amidala", "Jabba the Hutt", "Chewbacca", "Yoda",
+          "C3-PO", "R2-D2", "Shmi Skywalker", "Rey Skywalker", "Jar-Jar Binks",
+          "Maz Kanata", "Wedge Antilles");
+
+  /* In the homework, this could be represented as: */
+  // private final List<String> cardNames = List.of("Two", "Three", "Four",
+  // "Five",
+  // "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace");
 
   /*
    * The internal list of planets (like suits) that is used to generate the
    * deck.
    */
-  private final List<String> planets =
+  private final List<String> domains =
       List.of("Tatooine", "Alderaan", "Hoth", "Kamino", "Naboo", "Dagobah");
+
+  /* In the homework, this could be represented as: */
+  // private final List<String> domains =
+  // List.of("Hearts", "Clubs", "Spades", "Diamonds");
 
   /**
    * The deck of cards is populated in this constructor. A card is a combination
@@ -41,55 +51,44 @@ public class Deck extends LinkedList<Card> {
    * position in the list so all "Wedge Antilles" cards have a rank of 17.
    */
   public Deck() {
-    for(int personPos = 0; personPos < people.size(); personPos++) {
-      int rank = personPos + 1;
-      String person = people.get(personPos);
-
-      for(String planet : planets) {
-        add(new Card(person, planet, rank));
-      }
+    for(int rank = 1; rank <= cardNames.size(); rank++) {
+      String cardName = cardNames.get(rank - 1);
+      generateCardsForPerson(rank, cardName);
     }
   }
 
   /**
-   * Returns a String representation of all the cards currently in the deck.
-   * This is mostly just used for debugging purposes.
+   * Generate all the cards for a person. This will add a card for each planet
+   * for the given person.
+   * 
+   * @param rank The card rank.
+   * @param cardName The person name.
    */
-  @Override
-  public String toString() {
-    StringBuilder b = new StringBuilder();
-
-    b.append("List of cards:" + System.lineSeparator());
-
-    for(Card card : this) {
-      b.append("   ").append(card).append(System.lineSeparator());
+  private void generateCardsForPerson(int rank, String cardName) {
+    for(String domain : domains) {
+      add(new Card(cardName, domain, rank));
     }
-
-    return b.toString();
   }
 
   /**
-   * Randomly shuffle the cards in the deck.
+   * Randomly shuffle the cards in the deck. Note the use of the <em>this</em>
+   * keyword. It isn't needed but draws attention to the fact that size(),
+   * get(), and set() are all methods found in the parent {@link LinkedList}
+   * object.
    */
   public void shuffle() {
-    /*
-     * This algorithm works like this: 1) a temporary list is created that is a
-     * copy of the list in the Deck object. The list in the Deck object is
-     * emptied by calling clear(). While the temp list has cards, a card is
-     * randomly selected. It is removed from the temp list and added to the list
-     * in the Deck. Once the temp list is empty, the deck has been shuffled.
-     */
-    // List<Card> tempList = new LinkedList<>(this);
-    // Random random = new Random();
-    //
-    // clear();
-    //
-    // while(!tempList.isEmpty()) {
-    // add(tempList.remove(random.nextInt(tempList.size())));
-    // }
+    Random random = new Random();
 
-    /* This is a much shorter way of shuffling the deck. */
-    Collections.shuffle(this);
+    for(int cardPos = 0; cardPos < this.size(); cardPos++) {
+      int swapPos = random.nextInt(this.size());
+
+      Card card = this.get(cardPos);
+      this.set(cardPos, this.get(swapPos));
+      this.set(swapPos, card);
+    }
+
+    // Or, you can do this:
+    // Collections.shuffle(this);
   }
 
   /**
@@ -98,6 +97,6 @@ public class Deck extends LinkedList<Card> {
    * @return The "top" card.
    */
   public Card draw() {
-    return remove(0);
+    return this.remove();
   }
 }
