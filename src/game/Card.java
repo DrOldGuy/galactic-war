@@ -1,9 +1,9 @@
 package game;
 
 /**
- * This class represents a Card in Galactic War. A Card contains a card name, a
- * domain (planet or suit), and a rank. Cards are created in the {@link Deck}
- * constructor.
+ * This class represents a Card in Galactic War. A Card contains a
+ * card name, a domain (planet or suit), and a rank. Cards are created
+ * in the {@link Deck} constructor.
  * 
  * @author Promineo
  *
@@ -27,8 +27,8 @@ public class Card {
   }
 
   /**
-   * Returns a String representation of the Card object (i.e., "C3-PO of Naboo",
-   * or "Two of Spades").
+   * Returns a String representation of the Card object (i.e., "C3-PO
+   * of Naboo", or "Two of Spades").
    */
   @Override
   public String toString() {
@@ -36,8 +36,8 @@ public class Card {
   }
 
   /**
-   * @return The rank of the card. Ranks are assigned by the {@link Deck} class
-   *         when the card is created.
+   * @return The rank of the card. Ranks are assigned by the
+   *         {@link Deck} class when the card is created.
    */
   public int getRank() {
     return rank;

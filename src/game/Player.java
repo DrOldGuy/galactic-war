@@ -3,14 +3,15 @@ package game;
 import java.util.List;
 
 /**
- * This class defines the data needed for a player. Note the principle of
- * Abstraction: only the player name, score, and hand are maintained. This is a
- * very shallow abstraction of a real person. We only store the attributes we
- * care about.
+ * This class defines the data needed for a player. Note the principle
+ * of Abstraction: only the player name, score, and hand are
+ * maintained. This is a very shallow abstraction of a real person. We
+ * only store the attributes we care about.
  * <p>
- * Also note the principle of Encapsulation: all instance variables are private.
- * Access is only allowed through public accessor methods, which gives us
- * control over how the data is stored and presented.
+ * Also note the principle of Encapsulation: all instance variables
+ * are private. Access is only allowed through public accessor
+ * methods, which gives us control over how the data is stored and
+ * presented.
  * 
  * @author Promineo
  *
@@ -21,8 +22,8 @@ public class Player {
   private int score;
 
   /**
-   * The player name must be set in the constructor. It is immutable as there is
-   * no setter for player name.
+   * The player name must be set in the constructor. It is immutable
+   * as there is no setter for player name.
    * 
    * @param name The player name.
    */
@@ -38,7 +39,8 @@ public class Player {
   }
 
   /**
-   * Remove the "top" card from the deck and add it to the player's hand.
+   * Remove the "top" card from the deck and add it to the player's
+   * hand.
    * 
    * @param deck The deck of cards.
    */
@@ -47,9 +49,10 @@ public class Player {
   }
 
   /**
-   * Express the player object as a String. This returns the player name and
-   * cards in the hand. In the assignment, this would do the same thing as the
-   * describe() method. I would implement describe like this:
+   * Express the player object as a String. This returns the player
+   * name and cards in the hand. In the assignment, this would do the
+   * same thing as the describe() method. I would implement describe
+   * like this:
    * 
    * <pre>
    * public String describe() {
@@ -57,19 +60,23 @@ public class Player {
    * }
    * </pre>
    * 
-   * This is because toString() is a method on Object. When you pass an object
-   * to System.out.println(), the toString() method is called on the object.
-   * Java doesn't know anything about a describe() method. toString() is a
-   * method on the Object class. Since every class is ultimately derived from
-   * Object, Java knows that <em>every</em> object has a toString() method.
+   * This is because toString() is a method on Object. When you pass
+   * an object to System.out.println(), the toString() method is
+   * called on the object. Java doesn't know anything about a
+   * describe() method. toString() is a method on the Object class.
+   * Since every class is ultimately derived from Object, Java knows
+   * that <em>every</em> object has a toString() method.
    */
   @Override
   public String toString() {
+    return name;
+  }
+  
+  public void describe() {
     StringBuilder result = new StringBuilder();
 
     result.append("Player ").append(name).append("'s ").append(hand);
-
-    return result.toString();
+    System.out.println(result.toString());
   }
 
   /**
@@ -83,9 +90,9 @@ public class Player {
   /**
    * Remove and return the "top" card from the player's hand.
    * 
-   * @return The "top" card in the deck. Note that this will throw an exception
-   *         if this is called with an empty hand. It's up to the caller to keep
-   *         things straight.
+   * @return The "top" card in the deck. Note that this will throw an
+   *         exception if this is called with an empty hand. It's up
+   *         to the caller to keep things straight.
    */
   public Card flip() {
     return hand.remove();
