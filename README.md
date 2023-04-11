@@ -12,9 +12,17 @@ This class contains the entry point (main() method). When run, it creates two pl
 
 This class represents a player. Each player class has a player name, a hand of cards and a score. When a player flips a card, it is removed from the hand.
 
+### AbstractCardList
+
+This is the parent class of Deck and Hand. It extends LinkedList to represent that both a deck and a hand are a list of cards. This class contains the toString and describe methods, which are essentially the same for both Deck and Hand.
+
 ### Deck
 
-This class represents a deck of cards. The card list is created in the deck constructor. At the start of the game the deck is shuffled and cards are then removed from the deck and evenly dealt to the players.
+This class represents a deck of cards. The card list is created in the deck constructor. At the start of the game the deck is shuffled and cards are then removed from the deck and evenly dealt to the players. A Deck initializes itself in the constructor, creating all the cards. It contains the shuffle() and draw() methods.
+
+### Hand
+
+This class is very similar to Deck. It is a list of cards contained by the Player.
 
 ### Card
 
