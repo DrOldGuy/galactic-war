@@ -25,6 +25,7 @@ public abstract class AbstractCardList extends LinkedList<Card> {
   public String toString() {
     StringBuilder result = new StringBuilder();
     String lf = System.lineSeparator();
+    String space = "   ";
 
     /*
      * this.getClass() returns the class object of the concrete class
@@ -36,10 +37,7 @@ public abstract class AbstractCardList extends LinkedList<Card> {
 
     result.append(name).append(": ").append(lf);
 
-    for(int pos = 0; pos < this.size(); pos++) {
-      String space = "   ";
-      Card card = this.get(pos);
-
+    for(Card card : this) {
       /*
        * StringBuilder.append(card) calls the toString() method on the
        * Card object.
